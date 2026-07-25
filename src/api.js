@@ -21,13 +21,14 @@ export default class HelpDeskApi {
     };
     let response;
 
-    for (let attempt = 0; attempt < 4; attempt += 1) {
+    const maxAttempts = 12;
+    for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
       try {
         response = await fetch(url, options);
         break;
       } catch (error) {
-        if (attempt === 3) throw error;
-        await new Promise((resolve) => setTimeout(resolve, 1000 * (attempt + 1)));
+        if (attempt === maxAttempts - 1) throw error;
+        await new Promise((resolve) => setTimeout(resolve, 700));
       }
     }
 
