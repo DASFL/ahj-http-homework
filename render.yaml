@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: ahj-http-homework-api
+    runtime: node
+    plan: free
+    buildCommand: npm ci
+    startCommand: npm run start:server
+    healthCheckPath: /health
+    autoDeploy: true
