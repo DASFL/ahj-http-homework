@@ -13,11 +13,23 @@ export default class HelpDeskApi {
   }
 
   async request(method, { id, httpMethod = 'GET', body } = {}) {
-    const response = await fetch(this.buildUrl(method, id), {
+    const url = this.buildUrl(method, id);
+    const options = {
       method: httpMethod,
       headers: body ? { 'Content-Type': 'application/json' } : undefined,
       body: body ? JSON.stringify(body) : undefined,
-    });
+    };
+    let response;
+
+    for (let attempt = 0; attempt < 4; attempt += 1) {
+      try {
+        response = await fetch(url, options);
+        break;
+      } catch (error) {
+        if (attempt === 3) throw error;
+        await new Promise((resolve) => setTimeout(resolve, 1000 * (attempt + 1)));
+      }
+    }
 
     if (!response.ok) {
       let message = `Ошибка сервера: ${response.status}`;
