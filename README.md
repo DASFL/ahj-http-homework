@@ -6,6 +6,8 @@
 
 **[Открыть приложение на GitHub Pages](https://dasfl.github.io/ahj-http-homework/)**
 
+**[HelpDesk API](https://ahj-http-homework-api.onrender.com/health)**
+
 ## Запуск
 
 ```bash
